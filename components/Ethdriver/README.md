@@ -50,6 +50,7 @@ picotcp_ethernet_async_configurations(name, client, driver)
 Currently, this component supports the following platforms:
   - i.MX6
   - i.MX8MQ Evaluation Kit
+  - Avnet MaaXBoard (i.MX8MQ based)
   - TX2
   - Zynq7000
   - pc99, specifically the Intel 82574 and 82580 Ethernet controllers

@@ -17,8 +17,8 @@ if("${KernelPlatform}" STREQUAL "pc99")
     list(APPEND TimeServerPlatSources src/plat/pc99/plat.c)
 endif()
 
-# The imx8 boards (imx8mm-evk, imx8mq-evk) share the same timer device configuration
-if("${KernelPlatform}" MATCHES "imx8.*")
+# The imx8 boards (imx8mm-evk, imx8mq-evk and maaxboard) share the same timer device configuration
+if("${KernelPlatform}" MATCHES "imx8.*" OR "${KernelPlatform}" STREQUAL "maaxboard")
     set(PlatPrefix "imx8")
 else()
     set(PlatPrefix "${KernelPlatform}")

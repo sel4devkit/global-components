@@ -108,8 +108,8 @@ static int done_init = 0;
 void client_emit(unsigned int client_id);
 unsigned int client_get_sender_id(void);
 unsigned int client_num_badges(void);
-unsigned int client_enumerate_badge(unsigned int i);
-void *client_buf(unsigned int client_id);
+seL4_Word client_enumerate_badge(unsigned int i);
+void *client_buf(seL4_Word client_id);
 bool client_has_mac(unsigned int client_id);
 void client_get_mac(unsigned int client_id, uint8_t *mac);
 
@@ -384,7 +384,7 @@ int server_init(ps_io_ops_t *io_ops)
 
     /* preallocate buffers */
     for (int i = 0; i < RX_BUFS; i++) {
-        void *buf = ps_dma_alloc(&io_ops->dma_manager, BUF_SIZE, 4, 1, PS_MEM_NORMAL);
+        void *buf = ps_dma_alloc(&io_ops->dma_manager, BUF_SIZE, 4, 0, PS_MEM_NORMAL);
         assert(buf);
         memset(buf, 0, BUF_SIZE);
         uintptr_t phys = ps_dma_pin(&io_ops->dma_manager, buf, BUF_SIZE);
@@ -401,7 +401,7 @@ int server_init(ps_io_ops_t *io_ops)
         clients[client].client_id = client_enumerate_badge(client);
         clients[client].dataport = client_buf(clients[client].client_id);
         for (int i = 0; i < CLIENT_TX_BUFS; i++) {
-            void *buf = ps_dma_alloc(&io_ops->dma_manager, BUF_SIZE, 4, 1, PS_MEM_NORMAL);
+            void *buf = ps_dma_alloc(&io_ops->dma_manager, BUF_SIZE, 4, 0, PS_MEM_NORMAL);
             assert(buf);
             memset(buf, 0, BUF_SIZE);
             uintptr_t phys = ps_dma_pin(&io_ops->dma_manager, buf, BUF_SIZE);
